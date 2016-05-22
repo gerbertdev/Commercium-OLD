@@ -33,7 +33,7 @@ public class NetworkRequestPlayerData implements IMessage {
 
     public static class Handler implements IMessageHandler<NetworkRequestPlayerData, IMessage> {
         public static void respondToPacket(NetworkRequestPlayerData message, MessageContext ctx) {
-            PacketHandler.network.sendTo(new NetworkSendPlayerData(ctx.getServerHandler().playerEntity.getEntityData()), ctx.getServerHandler().playerEntity);
+            PacketHandler.network.sendTo(new NetworkSendPlayerData(ctx.getServerHandler().playerEntity.getEntityData(), message.playerName), ctx.getServerHandler().playerEntity);
         }
 
         public IMessage onMessage(final NetworkRequestPlayerData message, final MessageContext ctx) {

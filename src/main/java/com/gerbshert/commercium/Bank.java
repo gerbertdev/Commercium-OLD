@@ -1,6 +1,6 @@
 package com.gerbshert.commercium;
 
-import com.gerbshert.commercium.client.ClientData;
+import com.gerbshert.commercium.network.DataCacheHandler;
 import net.minecraft.entity.player.EntityPlayer;
 
 /**
@@ -33,14 +33,21 @@ public class Bank {
         removeBalance(giver, amount);
     }
 
-    public static void updateClientPlayerBankFromClientData(String playerName) {
-        String player$FromData = Double.toString(ClientData.getPlayerData(playerName).getDouble($));
-        String playerFinal$ = player$FromData.substring(0, player$FromData.indexOf('.') + 3);
-        player$ = playerFinal$;
+    //Gets cached data of playerData from DataCacheHandler
+    private static void updateClientPlayerBank(String playerName) {
+        if (DataCacheHandler.getPlayerDataCache(playerName) == null){
+            player$ = "wait.";
+        }
+        else {
+            String player$FromData = Double.toString(DataCacheHandler.getPlayerDataCache(playerName).getDouble($));
+            String playerFinal$ = player$FromData.substring(0, player$FromData.indexOf('.') + 3);
+            player$ = playerFinal$;
+        }
     }
 
+    //Calls for player$ to be updated and returns value
     public static String getClientPlayerBank(String playerName) {
-        updateClientPlayerBankFromClientData(playerName);
+        updateClientPlayerBank(playerName);
         return player$;
     }
 }

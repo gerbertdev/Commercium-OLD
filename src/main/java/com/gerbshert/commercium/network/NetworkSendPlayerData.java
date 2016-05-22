@@ -1,7 +1,5 @@
 package com.gerbshert.commercium.network;
 
-import com.gerbshert.commercium.Bank;
-import com.gerbshert.commercium.client.ClientData;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
@@ -42,8 +40,7 @@ public class NetworkSendPlayerData implements IMessage {
 
 
         public static void usePacket(NetworkSendPlayerData message) {
-            ClientData.setPlayerData(message.playerData);
-            Bank.updateClientPlayerBankFromClientData(message.playerName);
+            DataCacheHandler.setPlayerDataCache(message.playerData);
         }
 
         public IMessage onMessage(final NetworkSendPlayerData message, MessageContext ctx) {
