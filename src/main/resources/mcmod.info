@@ -1,0 +1,16 @@
+[
+{
+  "modid": "commercium",
+  "name": "Commercium",
+  "description": "A simple commerce mod for Forge",
+  "version": "1_9.0.0",
+  "mcversion": "${mcversion}",
+  "url": "http://commercium.gerbshert.com",
+  "updateUrl": "",
+  "authorList": ["GerbShert"],
+  "credits": "",
+  "logoFile": "commercium_logo.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]
