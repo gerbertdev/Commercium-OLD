@@ -1,6 +1,7 @@
 package com.gerbshert.commercium.network;
 
 import com.gerbshert.commercium.Bank;
+import com.gerbshert.commercium.client.ClientData;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
@@ -15,29 +16,34 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
  */
 public class NetworkSendPlayerData implements IMessage {
     private NBTTagCompound playerData;
+    private String playerName;
 
     public NetworkSendPlayerData() {
     }
 
-    public NetworkSendPlayerData(NBTTagCompound playerData) {
+    public NetworkSendPlayerData(NBTTagCompound playerData, String playerName) {
         this.playerData = playerData;
+        this.playerName = playerName;
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
         playerData = ByteBufUtils.readTag(buf);
+        playerName = ByteBufUtils.readUTF8String(buf);
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
         ByteBufUtils.writeTag(buf, playerData);
+        ByteBufUtils.writeUTF8String(buf, playerName);
     }
 
     public static class Handler implements IMessageHandler<NetworkSendPlayerData, IMessage> {
 
 
         public static void usePacket(NetworkSendPlayerData message) {
-            Bank.updateClientPlayerBank(Double.toString(message.playerData.getDouble(Bank.$)));
+            ClientData.setPlayerData(message.playerData);
+            Bank.updateClientPlayerBankFromClientData(message.playerName);
         }
 
         public IMessage onMessage(final NetworkSendPlayerData message, MessageContext ctx) {

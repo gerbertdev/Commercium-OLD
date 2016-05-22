@@ -15,6 +15,10 @@ public class PacketHandler {
         network = NetworkRegistry.INSTANCE.newSimpleChannel(Strings.MOD_ID + "1");
 
         network.registerMessage(NetworkSendPlayerData.Handler.class, NetworkSendPlayerData.class, 0, Side.CLIENT);
-        network.registerMessage(NetworkRequestPlayerData.Handler.class, NetworkRequestPlayerData.class, 1, Side.SERVER);
+        network.registerMessage(NetworkSendServer$Name.Handler.class, NetworkSendServer$Name.class, 1, Side.CLIENT);
+        network.registerMessage(NetworkSendServer$Icon.Handler.class, NetworkSendServer$Icon.class, 2, Side.CLIENT);
+        network.registerMessage(NetworkRequestPlayerData.Handler.class, NetworkRequestPlayerData.class, 10, Side.SERVER);
+        network.registerMessage(NetworkRequestServer$Name.Handler.class, NetworkRequestServer$Name.class, 11, Side.SERVER);
+        network.registerMessage(NetworkRequestServer$Icon.Handler.class, NetworkRequestServer$Icon.class, 12, Side.SERVER);
     }
 }

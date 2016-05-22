@@ -1,5 +1,6 @@
 package com.gerbshert.commercium;
 
+import com.gerbshert.commercium.client.ClientData;
 import net.minecraft.entity.player.EntityPlayer;
 
 /**
@@ -32,12 +33,14 @@ public class Bank {
         removeBalance(giver, amount);
     }
 
-    public static void updateClientPlayerBank(String playerBank) {
-        String playerFinal$ = playerBank.substring(0, playerBank.indexOf('.') + 3);
+    public static void updateClientPlayerBankFromClientData(String playerName) {
+        String player$FromData = Double.toString(ClientData.getPlayerData(playerName).getDouble($));
+        String playerFinal$ = player$FromData.substring(0, player$FromData.indexOf('.') + 3);
         player$ = playerFinal$;
     }
 
     public static String getClientPlayerBank(String playerName) {
+        updateClientPlayerBankFromClientData(playerName);
         return player$;
     }
 }

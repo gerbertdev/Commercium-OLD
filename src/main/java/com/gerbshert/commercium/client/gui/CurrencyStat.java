@@ -3,8 +3,6 @@ package com.gerbshert.commercium.client.gui;
 
 import com.gerbshert.commercium.Bank;
 import com.gerbshert.commercium.libraries.Strings;
-import com.gerbshert.commercium.network.NetworkRequestPlayerData;
-import com.gerbshert.commercium.network.PacketHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -25,12 +23,11 @@ public class CurrencyStat extends GuiButton {
         if (this.visible) {
             String playerName = mc.thePlayer.getName();
             if (updateTick >= 3) {
-                PacketHandler.network.sendToServer(new NetworkRequestPlayerData(playerName));
+
                 updateTick = 0;
             } else {
                 updateTick = updateTick + 1;
             }
-
 
             mc.getTextureManager().bindTexture(currencyTextures);
             FontRenderer fontrenderer = mc.fontRendererObj;
