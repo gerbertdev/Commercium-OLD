@@ -3,12 +3,14 @@ package com.gerbshert.commercium;
 import com.gerbshert.commercium.network.DataCacheHandler;
 import net.minecraft.entity.player.EntityPlayer;
 
+import java.text.NumberFormat;
+
 /**
  * Created by Gabriel on 19-May-16.
  */
 public class Bank {
     public static final String $ = "currency";
-    protected static String player$ = "Wait";
+    protected static String player$ = "0.00";
 
     public static Double getBalance(EntityPlayer player) {
         return player.getEntityData().getDouble($);
@@ -36,11 +38,34 @@ public class Bank {
     //Gets cached data of playerData from DataCacheHandler
     private static void updateClientPlayerBank(String playerName) {
         if (DataCacheHandler.getPlayerDataCache(playerName) == null) {
-            player$ = "wait.";
+            player$ = "0.00";
         } else {
-            String player$FromData = Double.toString(DataCacheHandler.getPlayerDataCache(playerName).getDouble($));
-            String playerFinal$ = player$FromData.substring(0, player$FromData.indexOf('.') + 3);
-            player$ = playerFinal$;
+            Double player$double = DataCacheHandler.getPlayerDataCache(playerName).getDouble($);
+            NumberFormat formatter = NumberFormat.getCurrencyInstance();
+            String moneyString;
+            if (player$double > 9999999999d){
+                moneyString ="ToDamnHigh";
+            }
+            else if (player$double >= 1000000000){
+                player$double = player$double/1000000000;
+                moneyString = formatter.format(player$double);
+                moneyString = moneyString.replaceAll("$", "");
+                moneyString = moneyString.replaceAll(",", "");
+                moneyString = moneyString+"T";
+            }
+            else if (player$double >= 1000000){
+                player$double = player$double/1000000;
+                moneyString = formatter.format(player$double);
+                moneyString = moneyString.replaceAll("$", "");
+                moneyString = moneyString.replaceAll(",", "");
+                moneyString = moneyString+"M";
+            }
+            else{
+                moneyString = formatter.format(player$double);
+                moneyString = moneyString.replaceAll("$", "");
+                moneyString = moneyString.replaceAll(",", "");
+            }
+            player$ = moneyString;
         }
     }
 

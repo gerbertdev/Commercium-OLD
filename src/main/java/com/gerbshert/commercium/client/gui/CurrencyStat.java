@@ -32,8 +32,7 @@ public class CurrencyStat extends GuiButton {
             mc.getTextureManager().bindTexture(currencyTextures);
             FontRenderer fontrenderer = mc.fontRendererObj;
             this.drawModalRectWithCustomSizedTexture(this.xPosition, this.yPosition, 0, 0, 10, 10, 10, 10);
-            fontrenderer.drawString(Bank.getClientPlayerBank(playerName), (float) ((this.xPosition - 13)
-                    - fontrenderer.getStringWidth(Bank.getClientPlayerBank(playerName)) / 2), (float) (this.yPosition + 2), 0x333333, false);
+            fontrenderer.drawString(Bank.getClientPlayerBank(playerName), (float) ((this.xPosition - 13) - fontrenderer.getStringWidth(Bank.getClientPlayerBank(playerName)) / 2), (float) (this.yPosition + 2), 0x333333, false);
         }
     }
 }
