@@ -35,10 +35,9 @@ public class Bank {
 
     //Gets cached data of playerData from DataCacheHandler
     private static void updateClientPlayerBank(String playerName) {
-        if (DataCacheHandler.getPlayerDataCache(playerName) == null){
+        if (DataCacheHandler.getPlayerDataCache(playerName) == null) {
             player$ = "wait.";
-        }
-        else {
+        } else {
             String player$FromData = Double.toString(DataCacheHandler.getPlayerDataCache(playerName).getDouble($));
             String playerFinal$ = player$FromData.substring(0, player$FromData.indexOf('.') + 3);
             player$ = playerFinal$;

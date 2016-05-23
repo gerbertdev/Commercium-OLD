@@ -1,7 +1,7 @@
 package com.gerbshert.commercium;
 
 import com.gerbshert.commercium.client.gui.GuiEvent;
-import com.gerbshert.commercium.commands.old.*;
+import com.gerbshert.commercium.commands.CommandEcon;
 import com.gerbshert.commercium.libraries.Strings;
 import com.gerbshert.commercium.network.PacketHandler;
 import net.minecraftforge.common.MinecraftForge;
@@ -34,15 +34,7 @@ public class Commercium {
 
     @Mod.EventHandler
     public void serverLoad(FMLServerStartingEvent event) {
-        //event.registerServercommand(new CommandBase());
-        //event.registerServerCommand(new CommandConfig());
-        event.registerServerCommand(new CommandGift());
-        event.registerServerCommand(new CommandHelp());
-        event.registerServerCommand(new CommandSteal());
-        event.registerServerCommand(new CommandPay());
-        event.registerServerCommand(new CommandPlayerAdd());
-        event.registerServerCommand(new CommandPlayerSet());
-        //event.registerServerCommand(new CommandTrade());
+        event.registerServerCommand(new CommandEcon());
     }
 
 }
