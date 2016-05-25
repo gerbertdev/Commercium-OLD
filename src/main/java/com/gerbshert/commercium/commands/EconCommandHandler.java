@@ -19,7 +19,7 @@ public class EconCommandHandler {
             String command = args[0];
             System.out.println(command);
             if (command.equals("bank") || command.equals("bal") || command.equals("balance")) {
-                sender.addChatMessage(new TextComponentString("[Commercium]: Your bank balance is " + Bank.getBalance(sender) + "."));
+                sender.addChatMessage(new TextComponentString("[Commercium]: Your bank balance is " + Bank.getBalance(sender.getName()) + "."));
             } else if (command.equals("pay")) {
                 sender.addChatMessage(new TextComponentString("[Commercium]: Usage = \"/econ pay <player> <amount>\"."));
             } else if (command.equals("gift")) {
@@ -43,7 +43,7 @@ public class EconCommandHandler {
             EntityPlayer editie = world.getPlayerEntityByName(args[1]);
             String help = args[1];
             if (command.equals("bank") || command.equals("bal") || command.equals("balance")) {
-                sender.addChatMessage(new TextComponentString("[Commercium]: " + editie.getDisplayName() + "'s bank balance is " + Bank.getBalance(editie) + "."));
+                sender.addChatMessage(new TextComponentString("[Commercium]: " + editie.getDisplayName() + "'s bank balance is " + Bank.getBalance(args[1]) + "."));
             } else if (command.equals("pay")) {
                 sender.addChatMessage(new TextComponentString("[Commercium]: Usage = \"/econ pay <player> <amount>\"."));
             } else if (command.equals("gift")) {
@@ -80,30 +80,30 @@ public class EconCommandHandler {
             System.out.println("legth of 4");
             String command = args[0];
             System.out.println(command);
-            EntityPlayer editie = world.getPlayerEntityByName(args[1]);
+            String editie = args[1];
             Double amount = Double.parseDouble(args[2]);
             if (command.equals("bank") || command.equals("bal") || command.equals("balance")) {
                 sender.addChatMessage(new TextComponentString("[Commercium]: Usage = \"/econ balance {player}\".(Player Optional)"));
             } else if (command.equals("pay")) {
-                Bank.sendBalance(sender, editie, amount);
-                sender.addChatMessage(new TextComponentString("[Commercium]: Paid " + editie.getDisplayName() + " " + Double.toString(amount)));
-                editie.addChatMessage(new TextComponentString("[Commercium]: Received payment from " + sender.getDisplayName() + " of " + Double.toString(amount)));
+                Bank.sendBalance(sender.getDisplayNameString(), editie, amount);
+                sender.addChatMessage(new TextComponentString("[Commercium]: Paid " + world.getPlayerEntityByName(editie).getDisplayName() + " " + Double.toString(amount)));
+                world.getPlayerEntityByName(editie).addChatMessage(new TextComponentString("[Commercium]: Received payment from " + sender.getDisplayName() + " of " + Double.toString(amount)));
             } else if (command.equals("gift")) {
-                Bank.sendBalance(sender, editie, amount);
-                sender.addChatMessage(new TextComponentString("[Commercium]: Gifted " + editie.getDisplayName() + " " + Double.toString(amount)));
-                editie.addChatMessage(new TextComponentString("[Commercium]: Received gift from " + sender.getDisplayName() + " of " + Double.toString(amount)));
+                Bank.sendBalance(sender.getDisplayNameString(), editie, amount);
+                sender.addChatMessage(new TextComponentString("[Commercium]: Gifted " + editie + " " + Double.toString(amount)));
+                world.getPlayerEntityByName(editie).addChatMessage(new TextComponentString("[Commercium]: Received gift from " + sender.getDisplayName() + " of " + Double.toString(amount)));
             } else if (command.equals("set")) {
                 Bank.setBalance(editie, amount);
-                sender.addChatMessage(new TextComponentString("[Commercium]: Set " + editie.getDisplayName() + "'s balance to " + Double.toString(amount)));
-                editie.addChatMessage(new TextComponentString("[Commercium]: A server operator changed your bank's balance to " + Double.toString(amount)));
+                sender.addChatMessage(new TextComponentString("[Commercium]: Set " + editie + "'s balance to " + Double.toString(amount)));
+                world.getPlayerEntityByName(editie).addChatMessage(new TextComponentString("[Commercium]: A server operator changed your bank's balance to " + Double.toString(amount)));
             } else if (command.equals("give")) {
                 Bank.addBalance(editie, amount);
-                sender.addChatMessage(new TextComponentString("[Commercium]: " + editie.getDisplayName() + "'s balance was increased by " + Double.toString(amount)));
-                editie.addChatMessage(new TextComponentString("[Commercium]: A server operator added " + Double.toString(amount) + " to your bank's balance"));
+                sender.addChatMessage(new TextComponentString("[Commercium]: " + editie + "'s balance was increased by " + Double.toString(amount)));
+                world.getPlayerEntityByName(editie).addChatMessage(new TextComponentString("[Commercium]: A server operator added " + Double.toString(amount) + " to your bank's balance"));
             } else if (command.equals("take")) {
                 Bank.removeBalance(editie, amount);
-                sender.addChatMessage(new TextComponentString("[Commercium]: " + editie.getDisplayName() + "'s balance was decreased by " + Double.toString(amount)));
-                editie.addChatMessage(new TextComponentString("[Commercium]: A server operator removed " + Double.toString(amount) + " from your bank's balance"));
+                sender.addChatMessage(new TextComponentString("[Commercium]: " + editie + "'s balance was decreased by " + Double.toString(amount)));
+                world.getPlayerEntityByName(editie).addChatMessage(new TextComponentString("[Commercium]: A server operator removed " + Double.toString(amount) + " from your bank's balance"));
             } else if (command.equals("help")) {
                 sender.addChatMessage(new TextComponentString("[Commercium]: Usage = \"/econ help <command>\"."));
             } else if (command.equals("commands")) {
