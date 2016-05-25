@@ -11,7 +11,11 @@ public class Bank {
     }
 
     public static void setBalance(String playerName, Double amount) {
-        BankData.setPlayerBalance(playerName, amount);
+        if (amount < 0) {
+            BankData.setPlayerBalance(playerName, 0.00);
+        } else {
+            BankData.setPlayerBalance(playerName, amount);
+        }
     }
 
     public static void addBalance(String playerName, Double amount) {
