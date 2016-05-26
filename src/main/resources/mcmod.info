@@ -3,7 +3,7 @@
   "modid": "commercium",
   "name": "Commercium",
   "description": "A simple commerce mod for Forge",
-  "version": "1_9.0.0",
+  "version": "1_9.0.5",
   "mcversion": "${mcversion}",
   "url": "http://commercium.gerbshert.com",
   "updateUrl": "",

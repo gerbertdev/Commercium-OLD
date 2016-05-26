@@ -2,7 +2,10 @@ package com.gerbshert.commercium;
 
 import com.gerbshert.commercium.commands.CommandEcon;
 import com.gerbshert.commercium.libraries.Strings;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -20,7 +23,6 @@ public class Commercium {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        new BankData();
     }
 
     @Mod.EventHandler
@@ -36,18 +38,23 @@ public class Commercium {
     @Mod.EventHandler
     public void serverLoad(FMLServerStartingEvent event) {
         event.registerServerCommand(new CommandEcon());
-        BankData.createBankData();
     }
 
-    public class Events {
+    private class Events {
         @SubscribeEvent
         public void serverJoin(PlayerEvent.PlayerLoggedInEvent event) {
             System.out.println("Player Join Event");
             System.out.println("Player Joined");
             String player = event.player.getDisplayNameString();
-            if (!BankData.getPlayerExist(player)) {
-                BankData.newPlayerBalance(player);
+            if (!event.player.getEntityWorld().getPlayerEntityByName(player).getEntityData().hasKey(Bank.$)) {
+                event.player.getEntityWorld().getPlayerEntityByName(player).getEntityData().setDouble(Bank.$, 0.00);
             }
+        }
+
+        @SubscribeEvent
+        public void playerRespawn(PlayerEvent.PlayerRespawnEvent event){
+            event.player.getEntityData().setDouble(Bank.$, event.player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG).getDouble(Bank.$));
         }
     }
 }
+

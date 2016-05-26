@@ -5,7 +5,6 @@ package com.gerbshert.commercium.libraries;
  */
 public class Strings {
     public static final String MOD_ID = "commercium";
-    public static final String MOD_VRESION = "1_9.0.0";
     public static final String MOD_NAME = "Commercium";
     public static final String RESOURCES = MOD_ID + ":";
 

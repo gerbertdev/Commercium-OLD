@@ -9,7 +9,18 @@ import net.minecraft.world.World;
  * Created by Gabriel on 22-May-16.
  */
 public class EconCommandHandler {
+    static String player1Name;
+    static String player2Name;
+    static EntityPlayer player1;
+    static EntityPlayer player2;
+
+
     public static void executeEconCommand(EntityPlayer sender, String[] args, World world) {
+        player1 = sender;
+        player1Name = player1.getDisplayNameString();
+        player2 = world.getPlayerEntityByName(args[1]);
+        player2Name = player2.getDisplayNameString();
+
         if (args.length == 0) {
             System.out.println("legth of 1");
             sender.addChatMessage(new TextComponentString("[Commercium]: Usage = \"/econ <command> <arguments>\"."));
