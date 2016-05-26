@@ -2,16 +2,14 @@ package com.gerbshert.commercium;
 
 import com.gerbshert.commercium.commands.CommandEcon;
 import com.gerbshert.commercium.libraries.Strings;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 
 /**
@@ -28,6 +26,7 @@ public class Commercium {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(new Events());
+
     }
 
     @Mod.EventHandler
@@ -40,19 +39,15 @@ public class Commercium {
         BankData.createBankData();
     }
 
-    public static class Events {
-        @Mod.EventHandler
-        public void serverJoin(PlayerDropsEvent event) {
+    public class Events {
+        @SubscribeEvent
+        public void serverJoin(PlayerEvent.PlayerLoggedInEvent event) {
+            System.out.println("Player Join Event");
             System.out.println("Player Joined");
-            /*if (event.getEntity() instanceof EntityPlayer) {
-                System.out.println("Player Joined");
-                String player = ((EntityPlayer) event.getEntity()).getDisplayNameString();
-                if (!BankData.getPlayerExist(player)) {
-                    BankData.newPlayerBalance(player);
-                }
-
-            }*/
+            String player = event.player.getDisplayNameString();
+            if (!BankData.getPlayerExist(player)) {
+                BankData.newPlayerBalance(player);
+            }
         }
     }
 }
-

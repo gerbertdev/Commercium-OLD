@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class BankData {
     public static File file = new File(Strings.MOD_ID + "\\bank.data");
-    static ArrayList<String> bankData;
+    static ArrayList<String> bankData = new ArrayList<String>();;
     private File dir = new File(Strings.MOD_ID);
 
     BankData() {
@@ -21,21 +21,21 @@ public class BankData {
         if (!file.exists()) {
             createBankData();
         }
-        //ToDo: Create /comercium/bank.data if not found.
-        //ToDo: Populate arraylist with player balances.
     }
 
     static Boolean getPlayerExist(String playerName) {
         loadBankData();
         Boolean playerFound = false;
         int listPosition = 0;
-        do {
+
+        while (!playerFound && listPosition != bankData.size()) {
             String arrayTestS = bankData.get(listPosition);
             String[] arrayTestA = arrayTestS.split("|", -1);
             if (arrayTestA[0].equals(playerName)) {
                 playerFound = true;
             }
-        } while (!playerFound && listPosition <= bankData.size());
+            listPosition++;
+        }
         return playerFound;
     }
 
@@ -44,7 +44,7 @@ public class BankData {
         String playerBalance = "Error Not Found";
         Boolean playerFound = false;
         int listPosition = 0;
-        do {
+        while (!playerFound && listPosition != bankData.size()){
             String arrayTestS = bankData.get(listPosition);
             String[] arrayTestA = arrayTestS.split("|", -1);
             if (arrayTestA[0].equals(playerName)) {
@@ -52,7 +52,8 @@ public class BankData {
                 playerBalance = arrayTestA[1].replace(",\\s", "");
                 playerFound = true;
             }
-        } while (!playerFound && listPosition <= bankData.size());
+            listPosition++;
+        }
         return Double.parseDouble(playerBalance);
     }
 
@@ -61,13 +62,14 @@ public class BankData {
         String playerBalance = "Err";
         Boolean playerFound = false;
         int listPosition = 0;
-        do {
+        while (!playerFound && listPosition != bankData.size()){
             String arrayTestS = bankData.get(listPosition);
             String[] arrayTestA = arrayTestS.split("|", -1);
             if (arrayTestA[0].equals(playerName)) {
                 bankData.set(listPosition, playerName + "|" + Amount.toString() + ",\\s");
             }
-        } while (!playerFound && listPosition <= bankData.size());
+            listPosition++;
+        }
         saveBankData();
     }
 
@@ -81,10 +83,10 @@ public class BankData {
         int listPosition = 0;
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            do {
+            while (listPosition != bankData.size()) {
                 writer.newLine();
                 writer.write(bankData.get(listPosition));
-            } while (listPosition <= bankData.size());
+            }
             writer.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,10 +97,10 @@ public class BankData {
         String lineValue = "";
         try {
             Scanner inFile1 = new Scanner(file).useDelimiter(",\\s*");
-            do {
+            while ((inFile1.hasNext())) {
                 lineValue = inFile1.next();
                 bankData.add(lineValue);
-            } while ((inFile1.hasNext()));
+            }
             inFile1.close();
         } catch (Exception e) {
             e.printStackTrace();
