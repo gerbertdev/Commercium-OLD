@@ -18,8 +18,6 @@ public class EconCommandHandler {
     public static void executeEconCommand(EntityPlayer sender, String[] args, World world) {
         player1 = sender;
         player1Name = player1.getDisplayNameString();
-        player2 = world.getPlayerEntityByName(args[1]);
-        player2Name = player2.getDisplayNameString();
 
         if (args.length == 0) {
             System.out.println("legth of 1");
@@ -30,7 +28,7 @@ public class EconCommandHandler {
             String command = args[0];
             System.out.println(command);
             if (command.equals("bank") || command.equals("bal") || command.equals("balance")) {
-                sender.addChatMessage(new TextComponentString("[Commercium]: Your bank balance is " + Bank.getBalance(sender.getName()) + "."));
+                sender.addChatMessage(new TextComponentString("[Commercium]: Your bank balance is " + Bank.getBalance(sender.getName()) + " ."));
             } else if (command.equals("pay")) {
                 sender.addChatMessage(new TextComponentString("[Commercium]: Usage = \"/econ pay <player> <amount>\"."));
             } else if (command.equals("gift")) {
@@ -48,6 +46,8 @@ public class EconCommandHandler {
             }
         }
         if (args.length == 2) {
+            player2 = world.getPlayerEntityByName(args[1]);
+            player2Name = player2.getDisplayNameString();
             System.out.println("legth of 3");
             String command = args[0];
             System.out.println(command);
@@ -88,6 +88,8 @@ public class EconCommandHandler {
             }
         }
         if (args.length == 3) {
+            player2 = world.getPlayerEntityByName(args[1]);
+            player2Name = player2.getDisplayNameString();
             System.out.println("legth of 4");
             String command = args[0];
             System.out.println(command);
@@ -122,6 +124,8 @@ public class EconCommandHandler {
             }
         }
         if (args.length > 3) {
+            player2 = world.getPlayerEntityByName(args[1]);
+            player2Name = player2.getDisplayNameString();
             sender.addChatMessage(new TextComponentString("[Commercium]: Usage = \"/econ <command> <arguments>\"."));
         }
     }
