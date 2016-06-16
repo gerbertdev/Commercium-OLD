@@ -10,9 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.world.World;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -39,15 +37,14 @@ public class CommandEcon extends CommandBase {
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        if (sender instanceof EntityPlayer){
+        if (sender instanceof EntityPlayer) {
             sender.addChatMessage(new TextComponentString("[Commercium]: Welcome to Commercium! Use /econCommands for a list of available commands."));
         }
     }
 
 
     @Override
-    public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[]
-            args, BlockPos pos) {
+    public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
         return null;
     }
 

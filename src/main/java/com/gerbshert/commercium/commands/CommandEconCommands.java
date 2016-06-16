@@ -1,6 +1,5 @@
 package com.gerbshert.commercium.commands;
 
-import com.gerbshert.commercium.Bank;
 import com.gerbshert.commercium.libraries.Strings;
 import com.google.common.collect.Lists;
 import net.minecraft.command.CommandBase;
@@ -17,34 +16,29 @@ import java.util.List;
 /**
  * Created by Gabriel on 15-Jun-16.
  */
-public class CommandEconBalance extends CommandBase {
-    public CommandEconBalance() {
+public class CommandEconCommands extends CommandBase {
+    public CommandEconCommands() {
     }
 
     @Override
     public String getCommandName() {
-        return "econBalance";
+        return "econCommands";
     }
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/econBalance {playerName}";
+        return "/econCommands";
     }
 
     @Override
     public List<String> getCommandAliases() {
-        return Lists.newArrayList(new String[]{"econBalance", "economyBalance", "commerceBalance", Strings.MOD_ID + "Balance", "econbalance", "economybalance", "commercebalance", Strings.MOD_ID + "balance"});
+        return Lists.newArrayList(new String[]{"econCommands", "economyCommands", "commerceCommands", Strings.MOD_ID + "Commands", "econcommands", "economycommands", "commercecommands", Strings.MOD_ID + "commands"});
     }
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         if (sender instanceof EntityPlayer) {
-            if (args.length == 1){
-                sender.addChatMessage(new TextComponentString("[Commercium]: Your balance is " + Bank.getBalance(args[0])));
-            }
-            else{
-            sender.addChatMessage(new TextComponentString("[Commercium]: Your balance is " + Bank.getBalance(sender.getName())));
-            }
+            sender.addChatMessage(new TextComponentString("[Commercium]: Available Commands { econAdd, econSet, econRemove, econPay, econBalance, econModInfo }"));
         }
     }
 

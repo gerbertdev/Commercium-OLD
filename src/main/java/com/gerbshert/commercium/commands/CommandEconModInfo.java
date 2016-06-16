@@ -6,46 +6,46 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.util.text.TextComponentString;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by Gabriel on 22-May-16.
+ * Created by Gabriel on 15-Jun-16.
  */
-public class CommandEconPay extends CommandBase {
-    public CommandEconPay() {
+public class CommandEconModInfo extends CommandBase {
+    public CommandEconModInfo() {
     }
 
     @Override
     public String getCommandName() {
-        return "econ";
+        return "econModInfo";
     }
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/econ [Command] arg1 arg2";
+        return "/econModInfo";
     }
 
     @Override
     public List<String> getCommandAliases() {
-        return Lists.newArrayList(new String[]{"econ", "economy", "commerce", Strings.MOD_ID});
+        return Lists.newArrayList(new String[]{"econModInfo", "economyModInfo", "commerceModInfo", Strings.MOD_ID + "ModInfo", "econmodinfo", "economymodinfo", "commercemodinfo", Strings.MOD_ID + "modinfo"});
     }
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        World world = sender.getEntityWorld();
-        EconCommandHandler.executeEconCommand(args, world, sender);
+        if (sender instanceof EntityPlayer) {
+            sender.addChatMessage(new TextComponentString("[Commercium]: Version: "+ Strings.MOD_VRESION));
+        }
     }
 
 
     @Override
-    public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[]
-            args, BlockPos pos) {
-        return args.length == 2 ? getListOfStringsMatchingLastWord(args, server.getAllUsernames()) : Collections.<String>emptyList();
+    public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
+        return null;
     }
 
     @Override
