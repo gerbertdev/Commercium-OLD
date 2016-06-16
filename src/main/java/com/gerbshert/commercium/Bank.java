@@ -6,9 +6,8 @@ import com.gerbshert.commercium.bankdata.DataHandler;
  * Created by Gabriel on 19-May-16.
  */
 public class Bank {
-    public static final String $ = "currency";
 
-    // Returns play's balance
+    // Returns player's balance
     public static Double getBalance(String playerName) {
         Double playerCurrency = DataHandler.getPlayerData(playerName);
         return playerCurrency;
@@ -56,4 +55,6 @@ public class Bank {
             return false;
         }
     }
+
+    //These
 }

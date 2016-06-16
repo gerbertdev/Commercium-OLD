@@ -10,7 +10,7 @@ public class DataCreator {
     DataCreator() {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(DataHandler.dataFile));
-            writer.write("ironhammer354-354.333");
+            writer.write("testNotch-0.89");
             writer.close();
         } catch (Exception e) {
             e.printStackTrace();

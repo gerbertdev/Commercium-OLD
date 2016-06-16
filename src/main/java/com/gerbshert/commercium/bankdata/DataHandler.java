@@ -25,6 +25,7 @@ public class DataHandler {
     * Check if Player exists
     */
     public static boolean getPlayerExist(String playerName) {
+        playerName = playerName.toLowerCase();
         DataReaderWriter.loadDataToArray();
 
         Boolean playerFound = false;
@@ -42,6 +43,7 @@ public class DataHandler {
     * Get a players data position
     */
     public static int getPlayerDataPosition(String playerName) {
+        playerName = playerName.toLowerCase();
         DataReaderWriter.loadDataToArray();
 
         Boolean playerFound = false;
@@ -56,8 +58,9 @@ public class DataHandler {
     }
 
     public static double getPlayerData(String playerName) {
+        playerName = playerName.toLowerCase();
         Double playerBal = null;
-        String playerData = dataArrayList.get(getPlayerDataPosition(playerName)-1);
+        String playerData = dataArrayList.get(getPlayerDataPosition(playerName) - 1);
         String[] strings = playerData.split("-", 2);
         for (String s : strings) {
         }
@@ -69,6 +72,7 @@ public class DataHandler {
     * Sets a players data
     */
     public static void setPlayerData(String playerName, Double amount) {
+        playerName = playerName.toLowerCase();
         int arrayPos = getPlayerDataPosition(playerName) - 1;
         DataReaderWriter.loadDataToArray();
         dataArrayList.remove(arrayPos);
@@ -80,6 +84,7 @@ public class DataHandler {
     * Adds a new player data
     */
     public static void newPlayerBalance(String playerName) {
+        playerName = playerName.toLowerCase();
         if (!getPlayerExist(playerName)) {
             DataReaderWriter.loadDataToArray();
             dataArrayList.add(playerName + "-" + 0.00);

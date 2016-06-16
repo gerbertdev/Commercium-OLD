@@ -6,10 +6,8 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 import java.util.Collections;
@@ -18,8 +16,8 @@ import java.util.List;
 /**
  * Created by Gabriel on 22-May-16.
  */
-public class CommandEcon extends CommandBase {
-    public CommandEcon() {
+public class CommandEconPay extends CommandBase {
+    public CommandEconPay() {
     }
 
     @Override
@@ -29,7 +27,7 @@ public class CommandEcon extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/econ";
+        return "/econ [Command] arg1 arg2";
     }
 
     @Override
@@ -39,16 +37,15 @@ public class CommandEcon extends CommandBase {
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        if (sender instanceof EntityPlayer){
-            sender.addChatMessage(new TextComponentString("[Commercium]: Welcome to Commercium! Use /econCommands for a list of available commands."));
-        }
+        World world = sender.getEntityWorld();
+        EconCommandHandler.executeEconCommand(args, world, sender);
     }
 
 
     @Override
     public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[]
             args, BlockPos pos) {
-        return null;
+        return args.length == 2 ? getListOfStringsMatchingLastWord(args, server.getAllUsernames()) : Collections.<String>emptyList();
     }
 
     @Override
