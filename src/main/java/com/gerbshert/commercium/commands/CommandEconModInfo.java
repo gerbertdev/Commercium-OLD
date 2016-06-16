@@ -38,7 +38,7 @@ public class CommandEconModInfo extends CommandBase {
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         if (sender instanceof EntityPlayer) {
-            sender.addChatMessage(new TextComponentString("[Commercium]: Version: "+ Strings.MOD_VRESION));
+            sender.addChatMessage(new TextComponentString("[Commercium]: Version: "+ Strings.MOD_VERSION));
         }
     }
 

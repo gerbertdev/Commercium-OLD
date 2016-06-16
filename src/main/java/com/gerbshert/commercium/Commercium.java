@@ -1,10 +1,7 @@
 package com.gerbshert.commercium;
 
 import com.gerbshert.commercium.bankdata.DataHandler;
-import com.gerbshert.commercium.commands.CommandEcon;
-import com.gerbshert.commercium.commands.CommandEconBalance;
-import com.gerbshert.commercium.commands.CommandEconCommands;
-import com.gerbshert.commercium.commands.CommandEconModInfo;
+import com.gerbshert.commercium.commands.*;
 import com.gerbshert.commercium.libraries.Strings;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -19,7 +16,7 @@ import static com.gerbshert.commercium.bankdata.DataReaderWriter.unloadArrayToDa
 /**
  * Created by Gabriel on 17-May-16.
  */
-@Mod(modid = Strings.MOD_ID, version = Strings.MOD_VRESION, name = Strings.MOD_NAME, acceptableRemoteVersions = "*")
+@Mod(modid = Strings.MOD_ID, version = Strings.MOD_VERSION, name = Strings.MOD_NAME, acceptableRemoteVersions = "*")
 public class Commercium {
 
     @Mod.EventHandler
@@ -43,6 +40,10 @@ public class Commercium {
         event.registerServerCommand(new CommandEconCommands());
         event.registerServerCommand(new CommandEconModInfo());
         event.registerServerCommand(new CommandEconBalance());
+        event.registerServerCommand(new CommandEconAdd());
+        event.registerServerCommand(new CommandEconSet());
+        event.registerServerCommand(new CommandEconRemove());
+        event.registerServerCommand(new CommandEconPay());
     }
 
     @Mod.EventHandler
